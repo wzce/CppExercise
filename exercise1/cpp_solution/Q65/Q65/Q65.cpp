@@ -17,12 +17,9 @@ long long bitLength(long long num){
 
 long long exercise6(){
 	long long res = 0;
-
 	int num;
 	cin >> num;
-
 	long long n;
-
 	for (int i = 0; i < num; i++){
 		cin >> n;
 		long long  length = bitLength(n);
@@ -33,9 +30,7 @@ long long exercise6(){
 			res = res + n;
 		}
 	}
-
 	cout << res;
-
 	return res;
 }
 

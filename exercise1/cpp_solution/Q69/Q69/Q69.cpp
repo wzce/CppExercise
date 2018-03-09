@@ -8,19 +8,18 @@ void exercise10(){
 	int num;
 	string str;
 	cin >> num >> str;
-
 	if (num == 1){
 		cout << 1;
 		return;
 	}
-
 	int max = 0;
 	int index;
 	for (int i = 1; i < num; i++){
 		int length = 1;
 		index = 1;
 		//奇数个情况
-		while ((i + index) < num && (i - index) >= 0 && str[i + index] == str[i - index]){
+		while ((i + index) < num && (i - index) >= 0 
+		&& str[i + index] == str[i - index]){
 			length = length + 2;
 			index++;
 		}
@@ -39,11 +38,8 @@ void exercise10(){
 		if (length>max){
 			max = length;
 		}
-
 	}
-
 	cout << max;
-
 }
 
 

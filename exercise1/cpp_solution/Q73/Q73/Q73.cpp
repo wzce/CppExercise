@@ -60,9 +60,7 @@ void exercise15(){
 				string *str = new string();
 				str->append(result[m]);
 				pre[m] = *str;
-				//cout << " pre[m]" << pre[m] << endl;;
 			}
-			//cout << "华丽丽的分割线================================================================================" << endl;
 			continue;
 		}
 
@@ -98,7 +96,7 @@ void exercise15(){
 }
 
 
-int main(){
+int main1(){
 	exercise15();
 	return 1;
 }

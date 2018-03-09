@@ -25,5 +25,7 @@ long long exercise2(){
 
 int main(){
 	cout << exercise2();
+	double c = 0.2323;
+	//int a = c1;
 	return 1;
 }

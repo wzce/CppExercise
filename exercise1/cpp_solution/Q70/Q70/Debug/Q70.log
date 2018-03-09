@@ -1,14 +1,18 @@
-﻿生成启动时间为 2017/9/24 17:11:39。
-     1>项目“E:\cpp\Q70\Q70\Q70.vcxproj”在节点 2 上(Build 个目标)。
-     1>Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\cpp\Q70\Debug\Q70.exe" /INCREMENTAL kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\cpp\Q70\Debug\Q70.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\cpp\Q70\Debug\Q70.lib" /MACHINE:X86 Debug\Q70.obj
-         Microsoft (R) Incremental Linker Version 12.00.30501.0
+﻿Build started 2017/11/17 21:10:21.
+     1>Project "E:\研一\c++助教\CppExercise\exercise1\cpp_solution\Q70\Q70\Q70.vcxproj" on node 2 (ClCompile target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Q70.cpp
+         Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
          Copyright (C) Microsoft Corporation.  All rights reserved.
          
-         "/OUT:E:\cpp\Q70\Debug\Q70.exe" /INCREMENTAL kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST "/MANIFESTUAC:level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG "/PDB:E:\cpp\Q70\Debug\Q70.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT "/IMPLIB:E:\cpp\Q70\Debug\Q70.lib" /MACHINE:X86 Debug\Q70.obj 
-         Q70.vcxproj -> E:\cpp\Q70\Debug\Q70.exe
-     1>已完成生成项目“E:\cpp\Q70\Q70\Q70.vcxproj”(Build 个目标)的操作。
+         cl /c /ZI /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Q70.cpp
+         
+         Q70.cpp
+     1>e:\研一\c++助教\cppexercise\exercise1\cpp_solution\q70\q70\q70.cpp(126): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>e:\研一\c++助教\cppexercise\exercise1\cpp_solution\q70\q70\q70.cpp(127): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>e:\研一\c++助教\cppexercise\exercise1\cpp_solution\q70\q70\q70.cpp(127): error C2143: syntax error : missing ';' before 'constant'
+     1>Done Building Project "E:\研一\c++助教\CppExercise\exercise1\cpp_solution\Q70\Q70\Q70.vcxproj" (ClCompile target(s)) -- FAILED.
 
-生成成功。
+Build FAILED.
 
-已用时间 00:00:00.39
+Time Elapsed 00:00:01.20

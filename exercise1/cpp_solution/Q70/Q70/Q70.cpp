@@ -121,5 +121,9 @@ void exercise11(){
 
 int main(){
 	exercise11();
+	int x = 0;
+	double cc = 1.233;
+	x = cc;
+	int d = cc  1;
 	return 1;
 }
