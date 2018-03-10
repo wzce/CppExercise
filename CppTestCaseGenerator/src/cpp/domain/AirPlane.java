@@ -3,7 +3,7 @@ package cpp.domain;
 /**
  * Created by zuce wei on 2018/3/8.
  */
-public class AirPlane {
+public class AirPlane implements Cloneable{
 
     public static final String state_normal="normal";
     public static final String state_take_off="take_off";
@@ -156,5 +156,32 @@ public class AirPlane {
                 ", takeOffOrder=" + takeOffOrder +
                 ", landOffOrder=" + landOffOrder +
                 '}';
+    }
+
+//    public AirPlane copy(){
+//        AirPlane airPlane=new AirPlane();
+//        airPlane.id=this.id;
+//        airPlane.taskTime=taskTime;
+//        airPlane.arriveTime=arriveTime;
+//        airPlane.landTime=landTime;
+//        airPlane.takeOffTime=takeOffTime;
+//        airPlane.backTime=backTime;
+//        airPlane.landOrder=landOrder;
+//        airPlane.takeOffCurrent=takeOffCurrent;
+//        airPlane.landTimeCurrent=landTimeCurrent;
+//        airPlane.landOffOrder=landOffOrder;
+//
+//        return airPlane;
+//    }
+
+    @Override
+    public Object clone() {
+        AirPlane stu = null;
+        try{
+            stu = (AirPlane) super.clone();
+        }catch(CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return stu;
     }
 }

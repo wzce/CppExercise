@@ -86,6 +86,7 @@ public class Generator {
         }
         generatorINputFile(commandStrList,"schedule");
         Scheduler scheduler=new Scheduler();
+        S s=new S();
         scheduler.schedule(list,commandList);
     }
 
@@ -112,5 +113,7 @@ public class Generator {
     public static void main(String a[]){
         Generator generator=new Generator();
         generator.generator();
+
+
     }
 }
