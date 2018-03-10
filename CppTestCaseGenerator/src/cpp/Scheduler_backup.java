@@ -5,9 +5,9 @@ import cpp.domain.Command;
 
 import java.util.*;
 
-public class S {
+public class Scheduler_backup {
     int currentTaskRemainTime=0;
-    String currentPlaneId;//当前占用跑道的飞机
+    AirPlane currentPlane;//当前占用跑道的飞机
     int time=0;
 
     Queue<AirPlane> flyList;
@@ -15,11 +15,6 @@ public class S {
     List<AirPlane> taskList=new ArrayList<AirPlane>();
 
     List<AirPlane> doneList=new ArrayList<AirPlane>();//已经完成调度的飞机
-
-
-    int number=0;
-    int joinNum=0;
-    int planeNum;
 
     Comparator<AirPlane> takeOffOrder =  new Comparator<AirPlane>(){
         public int compare(AirPlane p1, AirPlane p2) {
@@ -41,7 +36,7 @@ public class S {
                         res= p1.getId().length()<p2.getId().length()?1:0;
                     }
                 }else{
-                    res= (p1.takeOffOrder-p2.takeOffOrder);
+                   res= (p1.takeOffOrder-p2.takeOffOrder);
                 }
             }else {
                 res= -1;
@@ -52,7 +47,7 @@ public class S {
 
     Comparator<AirPlane> lanOrder =  new Comparator<AirPlane>(){
         public int compare(AirPlane p1, AirPlane p2) {
-            // 机降落时按照返航的顺序进行降落（先返航到达甲板的飞机先降落，
+           // 机降落时按照返航的顺序进行降落（先返航到达甲板的飞机先降落，
             // 如果返航到达甲板的时刻相同，则降落优先级为
             // 运输机>战斗机>直升机，
             // 如果飞机类型相同则编号里数字小的先降落）。
@@ -88,17 +83,18 @@ public class S {
     public void schedule(List<AirPlane> list, List<Command> commandList){
         System.out.println("开始调度");
         List<String> res=new ArrayList<>();
+        int number=0;
+        int joinNum=0;
 
-         planeNum=list.size();
+        int planeNum=list.size();
+//        System.out.println("开始调度");
         //优先队列使用示例
-        flyList = new PriorityQueue<AirPlane>(list.size(),takeOffOrder);
-        landList=new PriorityQueue<AirPlane>(list.size(),lanOrder);
-        for(;planeNum>0;time++){
+         flyList = new PriorityQueue<AirPlane>(list.size(),takeOffOrder);
+         landList=new PriorityQueue<AirPlane>(list.size(),lanOrder);
+        for(;;time++){
 
 //            System.out.println("-----时刻:  "+time+"  taskList.size(): "+
-//                    taskList.size()+" land: "+landList.size()+"  fly: "+flyList.size()
-//                    +"  currentRemainTime: "+currentTaskRemainTime
-//            +" currentId: "+currentPlaneId+"  planeNum : "+planeNum);
+//                    taskList.size()+" land: "+landList.size()+"  fly: "+flyList.size()+"  currentRemainTime: "+currentTaskRemainTime);
             for(Command command:commandList){
                 if(Command.state_used.equals(command.state)){
                     continue;
@@ -106,15 +102,13 @@ public class S {
                 //System.out.println(" Command: "+command.toString()+"  nowTime: "+time);
                 if (time==command.getTime()){
                     if(Command.command_join.equals(command.getCommand())){
-                        joinNum++;
+//                        joinNum++;
                         //该时刻有加入甲板的飞机，则加入就绪队列
                         AirPlane plane=find(list,command.getObject());
                         System.out.println(joinNum+" 加入甲板--： "+plane.getId()+" time: "+time);
-//                        joinNum++;
+                        joinNum++;
                         plane.setArriveTime(time);
                         showStatus(time,plane.id,command.getCommand());
-//
-//                        AirPlane p= (AirPlane) plane.clone();
                         flyList.add(plane);
                     }
                     else if(Command.command_landfirst.equals(command.getCommand())){
@@ -125,7 +119,7 @@ public class S {
                         plane.setState(AirPlane.state_land);//直接进入降落状态
                         plane.setLandOrder(AirPlane.landOrderNumber);
 
-                        AirPlane p= (AirPlane) plane.clone();
+                        AirPlane p= plane;
                         landList.add(p);
 
                         showStatus(time,plane.id,command.getCommand());
@@ -135,12 +129,66 @@ public class S {
                 }
             }
 
-            checkTakeOffLand(list);//检测该时刻有没有飞机起飞或者降落完成
-            chooseAPlane();
+            if(currentTaskRemainTime<=0 && currentPlane!=null){
+                if( AirPlane.state_take_off.equals(currentPlane.getState())){
+                    //该飞机刚才还在起飞状态
+                    currentPlane.setState(AirPlane.state_task);//飞机进入任务状态
+                   // currentPlane.setLandTimeCurrent(time);
+//                    showStatus(time,currentPlane.id,"起飞结束");
+                    taskList.add(currentPlane);
+
+                }
+                else if(AirPlane.state_land.equals(currentPlane.getState())){
+                    //该飞机刚才还处于降落状态，现在已经降落完
+                    //landList.remove(currentPlane);
+                    currentPlane.setLandTimeCurrent(time);
+                    number++;
+                    planeNum--;
+                    System.out.println(number+ "  *-*-*-**-*-  time: "+time+"  "+currentPlane.display(Command.command_schedule));//飞行完则输出
+                    //res.add(currentPlane.display(Command.command_schedule));
+//                    showStatus(time,currentPlane.id,"降落结束");
+                    doneList.add(currentPlane);
+                }
+                currentPlane=null;
+            }
+
+            if(currentTaskRemainTime<=0 && currentPlane==null){
+                //当前没有飞机占用跑道在起飞或者降落
+                if(flyList.size()!=0){
+                    //就绪的等待起飞队列有飞机，则优先选择一架起飞
+                    currentPlane= flyList.poll();
+
+
+                    currentPlane.setState(AirPlane.state_take_off);//设置该飞机的起飞状态
+                    currentPlane.setTakeOffCurrent(time);
+                    currentTaskRemainTime=currentPlane.getTakeOffTime();
+//                    showStatus(time,currentPlane.id,"开始起飞");
+                }
+                else if(landList.size()!=0){
+//                    showStatus(time,currentPlane.id,"开始降落");
+                    currentPlane= landList.poll();
+//                    System.out.println("准备队列弹出一架飞机");
+//                    showStatus(time,currentPlane.id,"开始降落");
+                    currentPlane.setState(AirPlane.state_land);//设置飞机的起飞状态为降落
+                    currentTaskRemainTime=currentPlane.getLandTime();
+                }
+            }
+
+            if(
+// isAllCommandUsed(commandList)
+//                    &&taskList.size()==0
+//                    && flyList.size()==0
+//                    && landList.size()==0
+//                    && currentTaskRemainTime<=0
+            planeNum<=0
+                    &&isAllCommandUsed(commandList)){
+                //说明所以调度任务结束
+                break;
+            }
             currentTaskRemainTime--;
-//            List<AirPlane> tmp=new ArrayList<AirPlane>();
+            List<AirPlane> tmp=new ArrayList<AirPlane>();
             for(AirPlane plane:taskList){
-                if(!AirPlane.state_task.equals(plane.getState())){//如果不是处于工作状态则不需要管
+                if(AirPlane.state_land.equals(plane.getState())){
                     continue;
                 }
                 plane.taskTime--;
@@ -148,13 +196,13 @@ public class S {
                     plane.setState(AirPlane.state_land);//由任务状态转为降落状态
                     plane.setBackTime(time);
                     landList.add(plane);
-//                    tmp.add(plane);
+                    tmp.add(plane);
 //                    taskList.remove(plane);
                 }
             }
-//            for(AirPlane plane:tmp){
-//                taskList.remove(plane);
-//            }
+            for(AirPlane plane:tmp){
+                taskList.remove(plane);
+            }
         }//end for 调度的循环
 
 //        for(String str:res){
@@ -162,84 +210,23 @@ public class S {
 //        }
     }
 
-
-    void chooseAPlane(){
-
-        if(currentTaskRemainTime<=0 && currentPlaneId==null){
-            //当前没有飞机占用跑道在起飞或者降落
-            System.out.println("  --挑选新的飞机占用跑到  --");
-            if(flyList.size()!=0){
-                //就绪的等待起飞队列有飞机，则优先选择一架起飞
-                AirPlane currentPlane= flyList.poll();
-
-
-                currentPlane.setState(AirPlane.state_take_off);//设置该飞机的起飞状态
-                currentPlane.setTakeOffCurrent(time);
-                currentTaskRemainTime=currentPlane.getTakeOffTime();
-                currentPlaneId=currentPlane.getId();
-//                    showStatus(time,currentPlane.id,"开始起飞");
-
-//                if(currentPlane.){
-//
-//                }
-
-            }
-            else if(landList.size()!=0){
-//                    showStatus(time,currentPlane.id,"开始降落");
-                AirPlane currentPlane= landList.poll();
-//                    System.out.println("准备队列弹出一架飞机");
-//                    showStatus(time,currentPlane.id,"开始降落");
-                currentPlane.setState(AirPlane.state_land);//设置飞机的起飞状态为降落
-                currentTaskRemainTime=currentPlane.getLandTime();
-                currentPlaneId=currentPlane.getId();
-            }
-        }
-    }
-
-
-
-    void checkTakeOffLand(List<AirPlane> list){
-
-        if(currentTaskRemainTime<=0 && currentPlaneId!=null){
-            System.out.println("  --检测起飞降落是否完成  --");
-            AirPlane currentPlane=find(list,currentPlaneId);
-            if( AirPlane.state_take_off.equals(currentPlane.getState())){
-                //该飞机刚才还在起飞状态,现在已经起飞结束
-                currentPlane.setState(AirPlane.state_task);//飞机进入任务状态
-//                 currentPlane.setLandTimeCurrent(time);
-//                    showStatus(time,currentPlane.id,"起飞结束");
-                taskList.add(currentPlane);
-
-            }
-            else if(AirPlane.state_land.equals(currentPlane.getState())){
-                //该飞机刚才还处于降落状态，现在已经降落完
-                //landList.remove(currentPlane);
-                currentPlane.setLandTimeCurrent(time);
-                number++;
-
-                System.out.println(number+ "  *-*-*-**-*-  time: "+time+"  "+currentPlane.display(Command.command_schedule));//飞行完则输出
-                //res.add(currentPlane.display(Command.command_schedule));
-//                    showStatus(time,currentPlane.id,"降落结束");
-                planeNum--;
-                doneList.add(currentPlane);
-            }
-            currentPlaneId=null;
-        }
-    }
-
-
     void showStatus(int time,String id,String action){
         //System.out.println("时刻： "+time+ " id: "+id+" "+action);
     }
 
-    AirPlane find(List<AirPlane> list, String id){
+     AirPlane find(List<AirPlane> list, String id){
+        AirPlane plane=null;
+        int loc=-1;
         for(int i=0;i<list.size();i++){
             if(id.equals(list.get(i).getId())){
-                return list.get(i);
+                plane=list.get(i);
+                loc=i;
             }
         }
-
-        return null;
+//        if(loc!=-1){
+//            list.remove(loc);
+//        }
+        return plane;
     }
 
     boolean isAllCommandUsed(List<Command> list){
@@ -248,7 +235,6 @@ public class S {
                 return false;
             }
         }
-        return true;
+         return true;
     }
-
 }

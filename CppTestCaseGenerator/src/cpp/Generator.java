@@ -85,8 +85,8 @@ public class Generator {
             }
         }
         generatorINputFile(commandStrList,"schedule");
-        Scheduler scheduler=new Scheduler();
-        S s=new S();
+//        Scheduler_backup scheduler=new Scheduler_backup();
+        Scheduler scheduler =new Scheduler();
         scheduler.schedule(list,commandList);
     }
 

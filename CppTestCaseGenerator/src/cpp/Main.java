@@ -56,7 +56,7 @@ public class Main {
         commandList.add(new Command("landfirst","p2",7));
         commandList.add(new Command("schedule",null,0));
 
-        Scheduler scheduler=new Scheduler();
+        Scheduler_backup scheduler=new Scheduler_backup();
         scheduler.schedule(list,commandList);
 
     }
