@@ -3,14 +3,21 @@ package cpp;
 import cpp.domain.AirPlane;
 import cpp.domain.AirPlaneFactory;
 import cpp.domain.Command;
+import cpp.file.FileUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.GenericDeclaration;
+import java.util.*;
 
 /**
  * Created by zuce wei on 2018/3/9.
  */
 public class Generator {
+
+    //三个进阶难度
+    public static final String type_basic="basic";
+    public static final String type_easy="easy";
+    public static final String type_hard="hard";
+
     public String planeType[]={
             AirPlane.type_battle, AirPlane.type_transport, AirPlane.type_helicopter
     };
@@ -28,9 +35,16 @@ public class Generator {
 
     List<AirPlane> airPlaneList;
 
-    public void generator(){
+    public void generator(String path,int testNum,String testCaseType){
+
+
+
+        String inputName="test_"+testNum+".in";
+        String outputName="test_"+testNum+".out";
+        List<String> recordList=new ArrayList<>();
+
         int commandNum=0;
-        List<String> commandStrList=new ArrayList<String>();
+        List<String> commandStrList=new ArrayList<>();
         List<Command> commandList=new ArrayList<Command>();
         airPlaneList=new ArrayList<AirPlane>();
         int num =(int)(Math.random()*100+2);//产生飞机的数目,2--102架
@@ -62,6 +76,15 @@ public class Generator {
             //airPlaneList.add(plane);
             commandStrList.add(com);
             commandNum++;
+            recordList.add(plane.display(Command.command_normal));//basic的需求
+        }
+
+
+        if(Generator.type_basic.equals(testCaseType)){
+            generatorInputFile(commandStrList,Command.command_normal,path,inputName);
+            System.out.println(inputName);
+            FileUtil.writeByFileOutputStream(path,outputName,recordList);//生成测试的输出测试用例
+            return;
         }
 
         List<AirPlane> list=new ArrayList<AirPlane>(airPlaneList.size());
@@ -71,11 +94,18 @@ public class Generator {
             AirPlane plane=randomPlane(random);
             time=time+randomInt(3,0);
 
-            String com=Command.command_join+" "+plane.getId()+" "+time;
-            commandStrList.add(com);
-            commandNum++;
+            if(Command.command_schedule.equals(testCaseType)){
+//                String com=Command.command_join+" "+plane.getId()+" "+time;
+//                commandStrList.add(com);
+//                commandNum++;
+//                commandList.add(new Command(Command.command_join,plane.getId(),time));
+            }else {
+                String com=Command.command_join+" "+plane.getId()+" "+time;
+                commandStrList.add(com);
+                commandNum++;
+                commandList.add(new Command(Command.command_join,plane.getId(),time));
+            }
 
-            commandList.add(new Command(Command.command_join,plane.getId(),time));
 
             list.add(plane);
             time++;
@@ -84,10 +114,12 @@ public class Generator {
                 time--;
             }
         }
-        generatorINputFile(commandStrList,"schedule");
+        generatorInputFile(commandStrList,Command.command_schedule,path,inputName);
+
 //        Scheduler_backup scheduler=new Scheduler_backup();
         Scheduler scheduler =new Scheduler();
-        scheduler.schedule(list,commandList);
+        List<String> outputList=scheduler.schedule(list,commandList);
+        FileUtil.writeByFileOutputStream(path,outputName,outputList);//生成测试的输出测试用例
     }
 
     int randomInt(int up,int down){
@@ -101,19 +133,46 @@ public class Generator {
       return plane;
     }
 
-    void generatorINputFile(List<String> list,String type){
-        System.out.println(list.size()+1);
-        for(String s:list){
-            System.out.println(s);
+    void generatorInputFile(List<String> commandList,String type,String filePath,String fileName){
+//        System.out.println(commandList.size()+1);
+        commandList.add(0,""+(commandList.size()+1));
+        for(String s:commandList){
+            //System.out.println(s);
         }
-        System.out.println(type);
+        commandList.add(type);
+        FileUtil.writeByFileOutputStream(filePath,fileName,commandList);//生成测试用例的输入
+
+        //System.out.println(type);
         System.out.println("-----------------------end input------------------");
     }
 
     public static void main(String a[]){
+        Map<String ,Integer> typeNum=new HashMap<>();
+        typeNum.put(Generator.type_basic,2);
+        typeNum.put(Generator.type_easy,6);
+        typeNum.put(Generator.type_hard,2);
+//        String filePath=
         Generator generator=new Generator();
-        generator.generator();
+//        generator.generator();
+
+    }
 
 
+
+    void generetor(String basePath){
+        Map<String ,Integer> typeNum=new HashMap<>();
+        typeNum.put(Generator.type_basic,2);
+        typeNum.put(Generator.type_easy,6);
+        typeNum.put(Generator.type_hard,2);
+
+        int num=1;
+        String path=basePath+"/test_cases";
+        for(String key : typeNum.keySet()){
+            for(int i=0;i<typeNum.get(key);i++){
+                time=0;
+                this.generator(path,num,key);
+                num++;
+            }
+        }
     }
 }

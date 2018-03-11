@@ -23,7 +23,7 @@ public class Scheduler {
 
     List<String> recordList=new ArrayList<>();
 
-    Comparator<AirPlane> takeOffOrder =  new Comparator<AirPlane>(){
+    public static Comparator<AirPlane> takeOffOrder =  new Comparator<AirPlane>(){
         public int compare(AirPlane p1, AirPlane p2) {
 //            System.out.println("比较");
             //起飞优先级
@@ -87,9 +87,8 @@ public class Scheduler {
         }
     };
 
-    public void schedule(List<AirPlane> list, List<Command> commandList){
+    public List<String> schedule(List<AirPlane> list, List<Command> commandList){
         System.out.println("开始调度");
-        List<String> res=new ArrayList<>();
 
          planeNum=list.size();
         //优先队列使用示例
@@ -145,18 +144,11 @@ public class Scheduler {
                     plane.setState(AirPlane.state_land);//由任务状态转为降落状态
                     plane.setBackTime(time);
                     landList.add(plane);
-//                    tmp.add(plane);
-//                    taskList.remove(plane);
                 }
             }
-//            for(AirPlane plane:tmp){
-//                taskList.remove(plane);
-//            }
         }//end for 调度的循环
 
-//        for(String str:res){
-//            System.out.println(str);
-//        }
+        return recordList;
     }
 
 
@@ -214,7 +206,7 @@ public class Scheduler {
                 currentPlane.setLandTimeCurrent(time);
                 number++;
 
-                System.out.println(number+ "  *-*-*-**-*-  time: "+time+"  "+currentPlane.display(Command.command_schedule));//飞行完则输出
+               // System.out.println(number+ "  *-*-*-**-*-  time: "+time+"  "+currentPlane.display(Command.command_schedule));//飞行完则输出
                 recordList.add(currentPlane.display(Command.command_schedule));
 //                    showStatus(time,currentPlane.id,"降落结束");
                 planeNum--;
@@ -235,7 +227,6 @@ public class Scheduler {
                 return list.get(i);
             }
         }
-
         return null;
     }
 
