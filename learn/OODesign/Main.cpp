@@ -13,10 +13,12 @@ int main(){
 	Quote q("quote",30);
 	BulkQuote bq("bulk_quote", 30);
 	//printTotal(q,2);
-	//printTotal(bq, 2);
+	//printTotal(q,2);
+	//printTotal(q,2);
+	int aaa = 34343;
 
-
-
+	int x = 0;
+	int x = 0;
 
 	Quote * de1 =new Quote("de1", 100);
 	BulkQuote * de2 = new BulkQuote("de2", 200);
