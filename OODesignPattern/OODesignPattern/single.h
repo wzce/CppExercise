@@ -3,14 +3,20 @@
 /*
 	单列模式
 */
+std::mutex mux;
 
 //懒汉模式
 	class SingleTon{
 	private:
 		SingleTon(){}//构造方法私有化
 		static SingleTon* instance;
-		static std::mutex mux;
 	public:
+		~SingleTon(){
+			if (instance !=NULL ){
+				delete instance;
+				instance = NULL;
+			}
+		}
 		static SingleTon* getInstance();
 
 		static SingleTon* getInstanceSafe(){
@@ -24,18 +30,23 @@
 		}
 	};
 
-	 SingleTon* SingleTon::getInstance(){
-	
+	  SingleTon* SingleTon::getInstance(){
+		  if (instance == NULL){
+			  instance = new SingleTon();
+		 }
+		  return instance;
 	}
+	 
+	  SingleTon* SingleTon::instance(NULL);
 
-	//恶汉模式，线程安全
+//恶汉模式，线程安全
 	class HungrySingleTon{
 	private:
 		HungrySingleTon(){}
 	public:
-		HungrySingleTon* getInstance(){
-			static HungrySingleTon instance;
-			return &instance;
+		static HungrySingleTon* getInstance(){
+			static HungrySingleTon single;
+			return &single;
 		}
 
 	};
