@@ -1,8 +1,11 @@
-#include"observer.h"
-#include"subject.h"
+//#include"observer.h"
+//#include"subject.h"
 #include<iostream>
 
 using namespace std;
+
+class IObserver;
+class ISubject;
 
 class ConditionDisplay : public IObserver{
 private:
@@ -10,6 +13,11 @@ private:
 	double temperature;
 	double humidity;
 public:
+	ConditionDisplay(ISubject* weatherData){
+		this->weatherData = weatherData;
+		weatherData->registerObserver(this);
+	};
+
 	virtual void update(double temprature, double humidity, double presure);
 	void display();
 };

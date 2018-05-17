@@ -14,12 +14,13 @@
     <ProjectGuid>{38DA2350-4DBA-4204-BF52-F700211A74F9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ObserPattern</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -79,9 +80,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="conditiondisplay_observer.h" />
+    <ClInclude Include="forecastdispaly_observer.h" />
     <ClInclude Include="observer.h" />
     <ClInclude Include="subject.h" />
     <ClInclude Include="weatherdata_subject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

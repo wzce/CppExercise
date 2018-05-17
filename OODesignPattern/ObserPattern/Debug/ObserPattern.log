@@ -1,5 +1,12 @@
-﻿Build started 2018/5/17 11:43:27.
-
-Build succeeded.
-
-Time Elapsed 00:00:00.21
+﻿  main.cpp
+d:\plugins\cppexercise\oodesignpattern\obserpattern\main.cpp(1): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+d:\plugins\cppexercise\oodesignpattern\obserpattern\main.cpp(2): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+d:\plugins\cppexercise\oodesignpattern\obserpattern\main.cpp(3): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+d:\plugins\cppexercise\oodesignpattern\obserpattern\conditiondisplay_observer.h(21): warning C4373: “ConditionDisplay::update”: 虚函数重写“IObserver::update”，当参数只在 const/volatile 限定符上有差异时，早期版本的编译器未进行重写
+  d:\plugins\cppexercise\oodesignpattern\obserpattern\observer.h(4): note: 参见“IObserver::update”的声明
+d:\plugins\cppexercise\oodesignpattern\obserpattern\main.cpp(4): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+d:\plugins\cppexercise\oodesignpattern\obserpattern\forecastdispaly_observer.h(23): warning C4373: “ForecastDisplay::update”: 虚函数重写“IObserver::update”，当参数只在 const/volatile 限定符上有差异时，早期版本的编译器未进行重写
+  d:\plugins\cppexercise\oodesignpattern\obserpattern\observer.h(4): note: 参见“IObserver::update”的声明
+d:\plugins\cppexercise\oodesignpattern\obserpattern\main.cpp(5): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+  ObserPattern.vcxproj -> D:\plugins\CppExercise\OODesignPattern\Debug\ObserPattern.exe
+  ObserPattern.vcxproj -> D:\plugins\CppExercise\OODesignPattern\Debug\ObserPattern.pdb (Full PDB)
