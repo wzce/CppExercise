@@ -3,7 +3,8 @@
 #include"conditiondisplay_observer.h";
 #include"forecastdispaly_observer.h";
 #include"weatherdata_subject.h";
-
+#include<iostream>
+using namespace std;
 /**
 */
 
@@ -17,7 +18,12 @@ int main() {
 	for (int i = 0; i < 20;i++) {
 		weatherSubject->update(p+i,t+i,h+i);
 	}
+	cout << "***************************************移除订阅者******************************************" << endl;
+	weatherSubject->remove(conditionObserver);
 
+	for (int i = 0; i < 5; i++) {
+		weatherSubject->update(p + i, t + i, h + i);
+	}
 	//释放资源
 	delete weatherSubject;
 	delete conditionObserver;

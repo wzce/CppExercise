@@ -20,9 +20,11 @@ int main()
 	s.setStrategy(gun);
 	s.defense();
 
-	knife.reset();
-	gun.reset();
-
+	//knife.reset();
+	//gun.reset();
+	IStrategy * temp_memory = (*knife.get());
+	delete temp_memory;
+	//delete temp_memory;
     return 0;
 }
 

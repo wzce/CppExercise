@@ -23,21 +23,22 @@ private:
 	double temperature;
 	double humidity;
 	double presure;
-	list<IObserver * > obsercers;
+	list<IObserver * > obsevers;
 
 };
 
  void WeatherDataSubject::registerObserver(IObserver *observer){
-	 obsercers.push_back(observer);
+	 obsevers.push_back(observer);
  }
 
  void WeatherDataSubject::remove(IObserver*obsever){
-	 obsercers.remove(obsever);
+	 //obsevers.remove(obsever);
+	 obsevers.remove_if([obsever](IObserver *i){return i == obsever; });
  }
 
  void WeatherDataSubject::notify(){
-	 list<IObserver*>::iterator it = obsercers.begin();
-	 while (it != obsercers.end())
+	 list<IObserver*>::iterator it = obsevers.begin();
+	 while (it != obsevers.end())
 	 {
 		 (*it)->update(temperature,humidity,presure);
 		 it++;

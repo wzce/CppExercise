@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SingleTon", "OODesignPattern\OODesignPattern.vcxproj", "{AC4A6351-9DC6-44AE-A397-582790EC7BD0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObserPattern", "ObserPattern\ObserPattern.vcxproj", "{38DA2350-4DBA-4204-BF52-F700211A74F9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StragetyPattern", "StragetyPattern\StragetyPattern.vcxproj", "{7F643B04-FCE0-4B64-BB95-B76BE5F86532}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommandPattern", "CommandPattern\CommandPattern.vcxproj", "{2DF8CA53-18FF-4DD1-907E-4874F3B6C914}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,12 @@ Global
 		{7F643B04-FCE0-4B64-BB95-B76BE5F86532}.Release|Win32.Build.0 = Release|Win32
 		{7F643B04-FCE0-4B64-BB95-B76BE5F86532}.Release|x64.ActiveCfg = Release|x64
 		{7F643B04-FCE0-4B64-BB95-B76BE5F86532}.Release|x64.Build.0 = Release|x64
+		{2DF8CA53-18FF-4DD1-907E-4874F3B6C914}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2DF8CA53-18FF-4DD1-907E-4874F3B6C914}.Debug|Win32.Build.0 = Debug|Win32
+		{2DF8CA53-18FF-4DD1-907E-4874F3B6C914}.Debug|x64.ActiveCfg = Debug|Win32
+		{2DF8CA53-18FF-4DD1-907E-4874F3B6C914}.Release|Win32.ActiveCfg = Release|Win32
+		{2DF8CA53-18FF-4DD1-907E-4874F3B6C914}.Release|Win32.Build.0 = Release|Win32
+		{2DF8CA53-18FF-4DD1-907E-4874F3B6C914}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
