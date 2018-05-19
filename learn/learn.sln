@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShareMemory", "ShareMemory\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MutiThread", "MutiThread\MutiThread.vcxproj", "{7858C8C9-D625-4E92-8D33-CC3B8A0587DB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Backtracking", "Backtracking\Backtracking.vcxproj", "{3D7E1B7C-9D3F-423A-B42C-6978E1C5F7D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -57,6 +59,10 @@ Global
 		{7858C8C9-D625-4E92-8D33-CC3B8A0587DB}.Debug|Win32.Build.0 = Debug|Win32
 		{7858C8C9-D625-4E92-8D33-CC3B8A0587DB}.Release|Win32.ActiveCfg = Release|Win32
 		{7858C8C9-D625-4E92-8D33-CC3B8A0587DB}.Release|Win32.Build.0 = Release|Win32
+		{3D7E1B7C-9D3F-423A-B42C-6978E1C5F7D8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3D7E1B7C-9D3F-423A-B42C-6978E1C5F7D8}.Debug|Win32.Build.0 = Debug|Win32
+		{3D7E1B7C-9D3F-423A-B42C-6978E1C5F7D8}.Release|Win32.ActiveCfg = Release|Win32
+		{3D7E1B7C-9D3F-423A-B42C-6978E1C5F7D8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
